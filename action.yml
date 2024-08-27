@@ -1,4 +1,4 @@
-name: 'Action log'
+name: 'Action log thien cao'
 description: 'A GitHub Action to check for broken links in Markdown files'
 author: 'Thien Cao'
 inputs:
