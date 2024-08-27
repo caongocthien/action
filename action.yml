@@ -1,13 +1,14 @@
-name: 'Thien Cao Hello World'
-description: 'Greet someone and record the time'
+name: 'Action log'
+description: 'A GitHub Action to check for broken links in Markdown files'
+author: 'Thien Cao'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  inputs:
+  message:
+    description: 'The message to log'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
 runs:
-  using: 'node20'
+  using: 'node12'
   main: 'index.js'
+branding:
+  icon: 'link'
+  color: 'blue'
