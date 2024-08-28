@@ -25,6 +25,7 @@ async function run() {
 
     for (const [packageName, packageInfo] of Object.entries(dependencies)) {
       if (!allowLicenses.includes(packageInfo.license)) {
+        console.log('!allowLicenses.includes(packageInfo.license)', !allowLicenses.includes(packageInfo.license))
           listNoneMITLicense.push(packageName)
       }
     }
