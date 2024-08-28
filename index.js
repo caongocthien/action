@@ -14,7 +14,7 @@ async function run() {
     const packages = packageLock.packages;
 
 
-    if (!dependencies) {
+    if (!packages) {
       core.info('No dependencies found in package-lock.json.');
       return;
     }
