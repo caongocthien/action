@@ -11,7 +11,7 @@ async function run() {
     const allowLicenses = core.getInput('licenses').replace(/ /g,'').toUpperCase().split(',');
     
     // Extract dependencies
-    const dependencies = packageLock.packages;
+    const packages = packageLock.packages;
 
 
     if (!dependencies) {
@@ -19,8 +19,24 @@ async function run() {
       return;
     }
 
+    const dependencies = packages[""].dependencies ? Object.keys(packages[""].dependencies) : [];
+    const devDependencies = packages[""].devDependencies ? Object.keys(packages[""].devDependencies) : [];
+    const allDependencies = [...dependencies, ...devDependencies];
+    const mapPreFixListPackageName = allDependencies.map(dep => `node_modules/${dep}`)
+
+    
+    
+    const filteredDependencies = {};
+    
+    for (const key in packages) {
+        if (mapPreFixListPackageName.includes(key)) {
+            console.log('key', key)
+            filteredDependencies[key] = packages[key]
+        }
+    }
+
     const listNoneLicense = [];
-    for (const [packageName, packageInfo] of Object.entries(dependencies)) {
+    for (const [packageName, packageInfo] of Object.entries(filteredDependencies)) {
         console.log('packageInfo', packageInfo)
         console.log('packageInfo.license', packageInfo.license)
       if (!allowLicenses.includes(packageInfo.license)) {
