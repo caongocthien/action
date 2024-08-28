@@ -18,13 +18,13 @@ async function run() {
       core.info('No dependencies found in package-lock.json.');
       return;
     }
-console.log('dependencies', dependencies)
 
     const listNoneLicense = [];
     for (const [packageName, packageInfo] of Object.entries(dependencies)) {
-      if (!allowLicenses.includes(packageInfo.license)) {
         console.log('packageInfo', packageInfo)
-        console.log('!allowLicenses.includes(packageInfo.license)', !allowLicenses.includes(packageInfo.license))
+        console.log('packageInfo.license', packageInfo.license)
+      if (!allowLicenses.includes(packageInfo.license)) {
+
           listNoneLicense.push(packageName)
       }
     }
