@@ -8,7 +8,7 @@ async function run() {
     const packageLockPath = path.join(process.cwd(), 'package-lock.json');
     const packageLock = JSON.parse(await fs.readFile(packageLockPath, 'utf8'));
 
-    console.log('packageLock', packageLock.packages)
+    const allowLicenses = core.getInput('licenses');
     
     // Extract dependencies
     const dependencies = packageLock.packages;
@@ -21,8 +21,8 @@ async function run() {
 
     const listNoneMITLicense = [];
 
-    for (const [packageName, packageInfo] of Object.entries(dependencies)) {
-      if (packageInfo.license !== 'MIT' || packageInfo.license !== 'ISC') {
+    for (const [packageName, packageInfo] of Object.entries(packageLock)) {
+      if (!allowLicenses.includes(packageInfo.license)) {
           listNoneMITLicense.push(packageName)
       }
     }
