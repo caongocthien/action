@@ -13,34 +13,32 @@ async function run() {
     // Extract dependencies
     const packages = packageLock.packages;
 
-
+    // Check package empty
     if (!packages) {
       core.info('No dependencies found in package-lock.json.');
       return;
     }
 
+
+    // Filter main package installed
     const dependencies = packages[""].dependencies ? Object.keys(packages[""].dependencies) : [];
     const devDependencies = packages[""].devDependencies ? Object.keys(packages[""].devDependencies) : [];
     const allDependencies = [...dependencies, ...devDependencies];
+
+    // Filter package name with prefix to filter
     const mapPreFixListPackageName = allDependencies.map(dep => `node_modules/${dep}`)
 
-    
-    
+    // Filter object package with main package
     const filteredDependencies = {};
-    
     for (const key in packages) {
         if (mapPreFixListPackageName.includes(key)) {
-            console.log('key', key)
             filteredDependencies[key] = packages[key]
         }
     }
 
     const listNoneLicense = [];
     for (const [packageName, packageInfo] of Object.entries(filteredDependencies)) {
-        console.log('packageInfo', packageInfo)
-        console.log('packageInfo.license', packageInfo.license)
       if (!allowLicenses.includes(packageInfo.license)) {
-
           listNoneLicense.push(packageName)
       }
     }
