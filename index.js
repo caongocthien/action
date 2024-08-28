@@ -9,8 +9,6 @@ async function run() {
     const packageLock = JSON.parse(await fs.readFile(packageLockPath, 'utf8'));
 
     const allowLicenses = core.getInput('licenses').replace(/ /g,'').toUpperCase().split(',');
-
-    console.log('allowLicenses', allowLicenses);
     
     // Extract dependencies
     const dependencies = packageLock.packages;
@@ -22,11 +20,8 @@ async function run() {
     }
 
     const listNoneLicense = [];
-
     for (const [packageName, packageInfo] of Object.entries(dependencies)) {
-      if (!allowLicenses.includes(packageInfo)) {
-        console.log('allowLicenses)', allowLicenses);
-        console.log('packageInfo.license)', packageInfo.license);
+      if (!allowLicenses.includes(packageInfo.license)) {
           listNoneLicense.push(packageName)
       }
     }
