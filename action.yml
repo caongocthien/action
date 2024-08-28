@@ -1,10 +1,6 @@
-name: 'Action log thien cao'
-description: 'A GitHub Action to check for broken links in Markdown files'
+name: 'Check License'
+description: 'A GitHub Action to check the license of a package in a Node.js project'
 author: 'Thien Cao'
-inputs:
-  message:
-    description: 'The message to log'
-    required: true
 runs:
   using: 'node12'
   main: 'index.js'
