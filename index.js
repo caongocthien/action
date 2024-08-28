@@ -21,18 +21,19 @@ async function run() {
       return;
     }
 
-    const listNoneMITLicense = [];
+    const listNoneLicense = [];
 
     for (const [packageName, packageInfo] of Object.entries(dependencies)) {
       if (!allowLicenses.includes(packageInfo.license)) {
-        console.log('!allowLicenses.includes(packageInfo.license)', !allowLicenses.includes(packageInfo.license))
-          listNoneMITLicense.push(packageName)
+        console.log('allowLicenses)', allowLicenses);
+        console.log('packageInfo.license)', packageInfo.license);
+          listNoneLicense.push(packageName)
       }
     }
 
     // Check have package with license not suitable
-    if (listNoneMITLicense.length > 0) {
-      const formattedPackages = listNoneMITLicense.map(pkg => `- ${pkg}`).join('\n');
+    if (listNoneLicense.length > 0) {
+      const formattedPackages = listNoneLicense.map(pkg => `- ${pkg}`).join('\n');
       const message = `Dependencies without license suitable for project:\n${formattedPackages}`;
       core.setFailed(message);
     } else {
